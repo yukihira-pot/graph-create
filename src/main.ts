@@ -31,6 +31,8 @@ function receiveInput(event: Event) {
 
   if (maxHeight <= 0 || maxWidth <= 0 || vertexNum <= 0 || stationNum < 0) {
     window.alert("値が無効です。縦の長さ・横の長さ・頂点数は 0 より大きい整数を、ゴール数は 0 以上の整数を入力してください。");
+  } else if (vertexNum < stationNum) {
+    window.alert("頂点数はゴールの数以上である必要があります。")
   } else {  
     readGraphConfig(maxHeight, maxWidth, vertexNum, GraphType.Random);
   }
