@@ -2,11 +2,11 @@ import { Network, Node } from 'vis-network';
 import { Edge as VisEdge } from 'vis-network';
 import { MyEdge } from "./edge.ts"
 
-export function graphVisualize(adjancencyMatrix: number[][], edgesList: (MyEdge)[]): void {
+export function graphVisualize(nodeMatrix: number[][], edgesList: (MyEdge)[]): void {
     var nodeMaxIndex: number = 0;
-    for (let i = 0; i < adjancencyMatrix.length; i++) {
-        for (let j = 0; j < adjancencyMatrix[0].length; j++) {
-            nodeMaxIndex = Math.max(nodeMaxIndex, adjancencyMatrix[i][j]);
+    for (let i = 0; i < nodeMatrix.length; i++) {
+        for (let j = 0; j < nodeMatrix[0].length; j++) {
+            nodeMaxIndex = Math.max(nodeMaxIndex, nodeMatrix[i][j]);
         }
     }
 
@@ -19,8 +19,8 @@ export function graphVisualize(adjancencyMatrix: number[][], edgesList: (MyEdge)
     // エッジの定義
     var edges: VisEdge[] = [];
     for (const edge of edgesList) {
-      var v1: number = adjancencyMatrix[edge.x1][edge.y1];
-      var v2: number = adjancencyMatrix[edge.x2][edge.y2];
+      var v1: number = nodeMatrix[edge.x1][edge.y1];
+      var v2: number = nodeMatrix[edge.x2][edge.y2];
       var dist: string = Math.sqrt(
         Math.pow(edge.x1 - edge.x2, 2) + Math.pow(edge.y1 - edge.y2, 2)
       ).toFixed(3);

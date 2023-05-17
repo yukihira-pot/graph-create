@@ -15,15 +15,16 @@
       縦の長さ: <input type="number" id="max-height" placeholder="例: 5">
       横の長さ: <input type="number" id="max-width" placeholder="例: 8">
       頂点数: <input type="number" id="vertex-num" placeholder="例: 10">
+      ゴール数: <input type="number" id="station-num" placeholder="例: 2">
       <input type="submit" value="生成する">
     </form>
 
     <div id="container">
-      <h3>頂点位置:</h3>
+      <h3>頂点位置</h3>
       <div id="node-matrix">
         <table id="node-matrix__table" border="3"></table>
       </div>
-      <h3>辺, 頂点1の番号-頂点2の番号: (頂点1の座標)-(頂点2の座標) :</h3>
+      <h3>辺 [頂点1の番号 - 頂点2の番号: (頂点1の座標) - (頂点2の座標)]</h3>
       <div id="edge-container">
         <ol id="edge-coordinates"></ol>
       </div>
