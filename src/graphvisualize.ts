@@ -36,5 +36,5 @@ export function graphVisualize(nodeMatrix: number[][], edgesList: (MyEdge)[]): v
     console.log(data);
     
     var container = (document.getElementById("my-networks") as HTMLDivElement);
-    var network = new Network(container, data, {});
+    new Network(container, data, {});
   }

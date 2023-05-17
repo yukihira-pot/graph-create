@@ -1,5 +1,17 @@
 import { MyEdge } from "./edge.ts"
 
+function getCurrentDateTimeStr(): string{
+  const date = new Date()
+  const Y = date.getFullYear()
+  const M = ("00" + (date.getMonth()+1)).slice(-2)
+  const D = ("00" + date.getDate()).slice(-2)
+  const h = ("00" + date.getHours()).slice(-2)
+  const m = ("00" + date.getMinutes()).slice(-2)
+  const s = ("00" + date.getSeconds()).slice(-2)
+
+  return `${Y}${M}${D}_${h}${m}${s}`;
+}
+
 interface JsonData {
   [key: string]: string | number | boolean | null | undefined;
 }
@@ -9,7 +21,18 @@ function jsonToCSV(json: JsonData[], header: string): string {
   return header + body;
 }
 
+function createDownloadLink(data: string, filename: string): void {
+  const blob = new Blob([data], { type: 'text/csv' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = filename;
+  a.innerText = filename;
 
+  const li = document.createElement("li");
+  li.appendChild(a);
+  (document.getElementById("download-csv") as HTMLDivElement).appendChild(li);
+}
 
 export function csvGenerate(nodeMatrix: number[][], edgeCoordinates: (MyEdge)[], stationNum: number): void {
 
@@ -42,11 +65,16 @@ export function csvGenerate(nodeMatrix: number[][], edgeCoordinates: (MyEdge)[],
   possibleStations.sort((_1, _2) => 0.5 - Math.random());
   var stations: (number)[] = possibleStations.slice(0, stationNum);
 
+  console.log(stations);
+  
+  
+  // nodes に値を追加
   for (let i = 0; i < nodeMatrix.length; i++) {
     for (let j = 0; j < nodeMatrix[0].length; j++) {
       var isStation: number = 0;
-      if (stations.some( value => value == nodeMatrix[i][j] )) {
+      if (stations.some( value => (value == nodeMatrix[i][j]) )) {
         isStation = 1;
+        console.log(nodeMatrix[i][j]);
       }
       if (nodeMatrix[i][j] != -1) {
         nodes.push({
@@ -59,7 +87,11 @@ export function csvGenerate(nodeMatrix: number[][], edgeCoordinates: (MyEdge)[],
       }
     }
   }
+  
+  // ノードを ID でソート
+  nodes.sort((a, b) => parseInt(a.ID) - parseInt(b.ID));
 
+  // edges に値を追加
   for (const edge of edgeCoordinates) {
     edges.push({
       from: nodeMatrix[edge.x1][edge.y1].toString(),
@@ -71,5 +103,7 @@ export function csvGenerate(nodeMatrix: number[][], edgeCoordinates: (MyEdge)[],
   var edgeCSV: string = jsonToCSV(edges, ["from", "to\n"].join(","));
 
   console.log(nodeCSV);
-  console.log(edgeCSV);
+
+  createDownloadLink(nodeCSV, `node_${getCurrentDateTimeStr()}.csv`);
+  createDownloadLink(edgeCSV, `edge_${getCurrentDateTimeStr()}.csv`);
 }

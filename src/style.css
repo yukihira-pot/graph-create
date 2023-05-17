@@ -1,6 +1,24 @@
 body {
     width: 90vw;
     margin: 50px auto;
+    font-family: 'Yu Gothic';
+}
+
+.form-control {
+    height: 20px;
+    padding: 5px;
+    border: solid 3px orange;
+    border-radius: 5%;
+}
+
+#submit-btn {
+    background-color: orange;
+    border: solid 3px orangered;
+    font-weight: bold;
+}
+#submit-btn:hover {
+    background-color: rgb(255, 219, 152);
+    cursor: pointer;
 }
 
 #node-matrix__table {

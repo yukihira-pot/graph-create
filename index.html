@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
@@ -7,28 +7,33 @@
     <title>Graph Generate</title>
   </head>
   <body>
-    <h3>使い方: </h3>
+    <h3>1. 使い方: </h3>
     <p id="description">
       (縦の長さ×横の長さ) の大きさの盤面を生成し、盤面中のマスからランダムに頂点を選んでグラフを作成します。
     </p>
+
+    <h3>2. 生成フォーム</h3>
     <form id="graph-creation-form">
-      縦の長さ: <input type="number" id="max-height" placeholder="例: 5">
-      横の長さ: <input type="number" id="max-width" placeholder="例: 8">
-      頂点数: <input type="number" id="vertex-num" placeholder="例: 10">
-      ゴール数: <input type="number" id="station-num" placeholder="例: 2">
-      <input type="submit" value="生成する">
+      縦の長さ: <input type="number" id="max-height" class="form-control" placeholder="例：5">
+      横の長さ: <input type="number" id="max-width" class="form-control" placeholder="例：8">
+      頂点数: <input type="number" id="vertex-num" class="form-control" placeholder="例：10">
+      ゴール数: <input type="number" id="station-num" class="form-control" placeholder="例：2">
+      <input type="submit" id="submit-btn" value="生成する">
     </form>
 
+    <h3>3. CSV ダウンロード (生成後ダウンロードリンクができます)</h3>
+    <ul id="download-csv"></ul>
+
     <div id="container">
-      <h3>頂点位置</h3>
+      <h3>4. 頂点位置</h3>
       <div id="node-matrix">
         <table id="node-matrix__table" border="3"></table>
       </div>
-      <h3>辺 [頂点1の番号 - 頂点2の番号: (頂点1の座標) - (頂点2の座標)]</h3>
+      <h3>5. 辺 [頂点1の番号 - 頂点2の番号: (頂点1の座標) - (頂点2の座標)]</h3>
       <div id="edge-container">
         <ol id="edge-coordinates"></ol>
       </div>
-      <h3>描画</h3>
+      <h3>6. 描画</h3>
       <div id="my-networks"></div>
     </div>
     <script type="module" src="/src/main.ts"></script>
