@@ -73,7 +73,7 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
   
   var edgeCoordinates: (MyEdge)[] = [];
 
-  var maxIteration = nodeNum * 30;
+  var maxIteration = nodeNum * nodeNum;
   while (maxIteration--) {
     var nodeIndex1 = Math.floor(Math.random() * nodeNum);
     var nodeIndex2 = Math.floor(Math.random() * nodeNum);
@@ -90,18 +90,18 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
       // 平面グラフを作るために交差判定
       for (var existingEdge of edgeCoordinates) {
         if (existingEdge.isIntersect(newEdge)) {
-          console.log("intersect");
-          console.log(existingEdge, newEdge);
           isAbleToAdd = false;
           break;
         }
       }
       // ある頂点が辺上 (両端含まない) にないか判定
-      for (var nodeCoordinate of nodeCoordinates) {
+      for (const nodeCoordinate of nodeCoordinates) {
         const [x, y] = nodeCoordinate;
         if (newEdge.isPointOnEdge(x, y)) {
+          console.log(`is on point: ${x}, ${y} on [${newEdge}]`);
           isAbleToAdd = false;
           break;
+        } else {
         }
       }
 
@@ -112,5 +112,6 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
     }
   }
 
+  
   return [adjacencyMatrix, edgeCoordinates];
 }

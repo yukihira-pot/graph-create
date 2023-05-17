@@ -8,15 +8,18 @@
   </head>
   <body>
     <div id="container">
-      隣接行列:
-      <div id="adjacency-matrix"></div>
-      辺: 
-      <div id="edge-coordinates"></div>
-      描画: 
+      <h3>頂点位置:</h3>
+      <div id="adjacency-matrix">
+        <table id="adjacency-matrix__table" border="3"></table>
+      </div>
+      <h3>辺:</h3>
+      <div id="edge-container">
+        <ol id="edge-coordinates"></ol>
+      </div>
+      <h3>描画</h3>
       <div id="my-networks"></div>
     </div>
     <script type="module" src="/src/main.ts"></script>
     <script type="module" src="/src/graphcreate.ts"></script>
   </body>
 </html>
-

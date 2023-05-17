@@ -28,9 +28,18 @@ export class MyEdge {
 
   // (x, y) がその辺上 (両端含まない) にあるか判定
   isPointOnEdge(x: number, y: number): boolean {
+    // x 座標が同じとき
+    if ((this.x1 == x && x == this.x2) && (this.y1 < y && y < this.y2) || (this.y2 < y && y < this.y1)) {
+      return true;
+    }
+    // y 座標が同じとき
+    if ((this.y1 == y && y == this.y2) && (this.x1 < x && x < this.x2) || (this.x2 < x && x < this.x1)) {
+      return true;
+    }
+    // x 座標も y 座標も違うとき
     if ((this.x1 < x && x < this.x2) || (this.x2 < x && x < this.x1)) {
       if ((this.y1 < y && y < this.y2) || (this.y2 < y && y < this.y1)) {
-        if ((this.y1 - this.y2) * (x - this.x1) === (y - this.y1) * (this.x1 - this.x2)) {
+        if ((this.y1 - this.y2) * (x - this.x1) == (y - this.y1) * (this.x1 - this.x2)) {
           return true;
         }
       }

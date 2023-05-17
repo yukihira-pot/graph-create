@@ -13,7 +13,10 @@ function readGraphConfig(
   [adjacencyMatrix, edgeCoordinates] = createGraph(maxHeight, maxWidth, nodeNum, graphType);
 }
 
-readGraphConfig(40, 40, 50, GraphType.Random);
+readGraphConfig(30, 30, 300, GraphType.Random);
+
+console.log("adjacencyMatrix", adjacencyMatrix);
+
 
 graphInfoVisualize(adjacencyMatrix, edgeCoordinates);
 graphVisualize(adjacencyMatrix, edgeCoordinates);
