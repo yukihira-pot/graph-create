@@ -12,15 +12,11 @@ export function graphVisualize(adjancencyMatrix: number[][], edgesList: (MyEdge)
 
     // ノードの定義
     var nodes: Node[] = [];
-
     for (let i = 0; i <= nodeMaxIndex; i++) {
         nodes.push( { id: i, label: i.toString() } );
     }
   
     // エッジの定義
-    // var edges: Edge[] = [
-    //   {from: 1, to: 2, id: 1},
-    // ];
     var edges: VisEdge[] = [];
     for (const edge of edgesList) {
       var v1: number = adjancencyMatrix[edge.x1][edge.y1];
@@ -28,7 +24,7 @@ export function graphVisualize(adjancencyMatrix: number[][], edgesList: (MyEdge)
       var dist: string = Math.sqrt(
         Math.pow(edge.x1 - edge.x2, 2) + Math.pow(edge.y1 - edge.y2, 2)
       ).toFixed(3);
-      edges.push({ from: v1, to: v2, label: dist });
+      edges.push({ from: v1, to: v2, label: dist, smooth: false });
     }
   
     // グラフの定義(ノードとエッジ)
@@ -39,7 +35,6 @@ export function graphVisualize(adjancencyMatrix: number[][], edgesList: (MyEdge)
   
     console.log(data);
     
-  
     var container = (document.getElementById("my-networks") as HTMLDivElement);
     var network = new Network(container, data, {});
   }
