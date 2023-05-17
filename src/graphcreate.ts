@@ -19,11 +19,11 @@ export function createGraph(maxHeight: number, maxWidth: number, nodeNum: number
     throw console.error("nodeNum too large");
   }
 
-  var adjacencyMatrix: (number)[][] = new Array(maxHeight);
+  var nodeMatrix: (number)[][] = new Array(maxHeight);
   var edgeCoordinates: (MyEdge)[] = [];
 
   for (let i = 0; i < maxHeight; i++) {
-    adjacencyMatrix[i] = new Array(maxWidth).fill(-1);
+    nodeMatrix[i] = new Array(maxWidth).fill(-1);
   }
 
   switch (graphType) {
@@ -42,18 +42,18 @@ export function createGraph(maxHeight: number, maxWidth: number, nodeNum: number
     case GraphType.StarLike:
       break;
     case GraphType.Random:
-      [adjacencyMatrix, edgeCoordinates] = createRandomGraph(maxHeight, maxWidth, nodeNum);
+      [nodeMatrix, edgeCoordinates] = createRandomGraph(maxHeight, maxWidth, nodeNum);
       break;   
     }
-    console.log(adjacencyMatrix, edgeCoordinates);
+    console.log(nodeMatrix, edgeCoordinates);
 
-    return [adjacencyMatrix, edgeCoordinates];
+    return [nodeMatrix, edgeCoordinates];
 }
 
 function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number): [number[][], MyEdge[]] {
-  var adjacencyMatrix: number[][] = new Array(maxHeight);
+  var nodeMatrix: number[][] = new Array(maxHeight);
   for (let i = 0; i < maxHeight; i++) {
-    adjacencyMatrix[i] = new Array(maxWidth).fill(-1);
+    nodeMatrix[i] = new Array(maxWidth).fill(-1);
   }
 
   // 全ての格子点の中からランダムに nodeNum 個選ぶ
@@ -68,7 +68,7 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
   nodeCoordinates = nodeCoordinates.slice(0, nodeNum);
   for (let i = 0; i < nodeCoordinates.length; i++) {
     var [x, y] = nodeCoordinates[i];
-    adjacencyMatrix[x][y] = i;
+    nodeMatrix[x][y] = i;
   }
   
   var edgeCoordinates: (MyEdge)[] = [];
@@ -98,20 +98,17 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
       for (const nodeCoordinate of nodeCoordinates) {
         const [x, y] = nodeCoordinate;
         if (newEdge.isPointOnEdge(x, y)) {
-          console.log(`is on point: ${x}, ${y} on [${newEdge}]`);
+          // console.log(`is on point: ${x}, ${y} on [${newEdge}]`);
           isAbleToAdd = false;
           break;
-        } else {
         }
       }
 
       if (isAbleToAdd) {
-        console.log("add");
         edgeCoordinates.push(newEdge);
       }
     }
   }
 
-  
-  return [adjacencyMatrix, edgeCoordinates];
+  return [nodeMatrix, edgeCoordinates];
 }

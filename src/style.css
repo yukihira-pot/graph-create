@@ -1,10 +1,15 @@
-#adjacency-matrix__table {
+body {
+    width: 90vw;
+    margin: 50px auto;
+}
+
+#node-matrix__table {
     table-layout: fixed;
     width: 100%;
     margin: 0 auto;
 }
 
-#adjacency-matrix__table td {
+#node-matrix__table td {
     width: min-content;
 }
 
