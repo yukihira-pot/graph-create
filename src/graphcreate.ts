@@ -1,0 +1,116 @@
+import './style.css'
+import { Edge } from "./edge.ts"
+
+export enum GraphType {
+  Uniform,
+  Tree,
+  TreeLike,
+  Star,
+  StarLike,
+  Random
+}
+
+
+export function createGraph(maxHeight: number, maxWidth: number, nodeNum: number, graphType: GraphType): [(number)[][], (Edge)[]] {
+  const MAX_ELEMENTS: number = 1000000;
+  if (maxHeight * maxWidth > MAX_ELEMENTS) {
+    throw console.error("exceeded number of elemeents");
+  } else if (nodeNum > maxHeight * maxWidth) {
+    throw console.error("nodeNum too large");
+  }
+
+  var adjacencyMatrix: (number)[][] = new Array(maxHeight);
+  var edgeCoordinates: (Edge)[] = [];
+
+  for (let i = 0; i < maxHeight; i++) {
+    adjacencyMatrix[i] = new Array(maxWidth).fill(-1);
+  }
+
+  switch (graphType) {
+    case null:
+      throw console.error("graphType is null");
+    case undefined:
+      throw console.error("graphType is undefined");
+    case GraphType.Uniform:
+      break;
+    case GraphType.Tree:
+      break;
+    case GraphType.TreeLike:
+      break;
+    case GraphType.Star:
+      break;
+    case GraphType.StarLike:
+      break;
+    case GraphType.Random:
+      [adjacencyMatrix, edgeCoordinates] = createRandomGraph(maxHeight, maxWidth, nodeNum);
+      break;   
+    }
+    console.log(adjacencyMatrix, edgeCoordinates);
+
+    return [adjacencyMatrix, edgeCoordinates];
+}
+
+function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number): [number[][], Edge[]] {
+  var adjacencyMatrix: number[][] = new Array(maxHeight);
+  for (let i = 0; i < maxHeight; i++) {
+    adjacencyMatrix[i] = new Array(maxWidth).fill(-1);
+  }
+
+  // 全ての格子点の中からランダムに nodeNum 個選ぶ
+  var nodeCoordinates: (number)[][] = [];
+  for (let i = 0; i < maxHeight; i++) {
+    for (let j = 0; j < maxWidth; j++) {
+      nodeCoordinates.push([i, j]);
+    }
+  }
+  // 全ての格子点を入れた配列をランダムにソートし、前から nodeNum 個を頂点の座標とする
+  nodeCoordinates.sort((_1, _2) => 0.5 - Math.random());
+  nodeCoordinates = nodeCoordinates.slice(0, nodeNum);
+  for (let i = 0; i < nodeCoordinates.length; i++) {
+    var [x, y] = nodeCoordinates[i];
+    adjacencyMatrix[x][y] = i;
+  }
+  
+  var edgeCoordinates: (Edge)[] = [];
+
+  var maxIteration = nodeNum * 30;
+  while (maxIteration--) {
+    var nodeIndex1 = Math.floor(Math.random() * nodeNum);
+    var nodeIndex2 = Math.floor(Math.random() * nodeNum);
+    if (nodeIndex1 == nodeIndex2) continue;
+    
+    var node1: number[] = nodeCoordinates[nodeIndex1];
+    var node2: number[] = nodeCoordinates[nodeIndex2];
+    var newEdge = new Edge(node1[0], node1[1], node2[0], node2[1]);
+    var newReverseEdge = new Edge(node2[0], node2[1], node1[0], node1[1]);
+
+    if (!edgeCoordinates.some(edge => edge.equals(newEdge)) && !edgeCoordinates.some(edge => edge.equals(newReverseEdge))) {
+      var isAbleToAdd: boolean = true;
+
+      // 平面グラフを作るために交差判定
+      for (var existingEdge of edgeCoordinates) {
+        if (existingEdge.isIntersect(newEdge)) {
+          console.log("intersect");
+          console.log(existingEdge, newEdge);
+          isAbleToAdd = false;
+          break;
+        }
+      }
+      // ある頂点が辺上 (両端含まない) にないか判定
+      for (var nodeCoordinate of nodeCoordinates) {
+        const [x, y] = nodeCoordinate;
+        if (newEdge.isPointOnEdge(x, y)) {
+          isAbleToAdd = false;
+          break;
+        }
+      }
+
+      if (isAbleToAdd) {
+        console.log("add");
+        edgeCoordinates.push(newEdge);
+      }
+    }
+  }
+
+  return [adjacencyMatrix, edgeCoordinates];
+}

@@ -1,24 +1,10 @@
 import './style.css'
-import typescriptLogo from './typescript.svg'
-import viteLogo from '/vite.svg'
-import { setupCounter } from './counter.ts'
+import { createGraph, GraphType } from "./graphcreate.ts"
 
-document.querySelector<HTMLDivElement>('#app')!.innerHTML = `
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="${viteLogo}" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://www.typescriptlang.org/" target="_blank">
-      <img src="${typescriptLogo}" class="logo vanilla" alt="TypeScript logo" />
-    </a>
-    <h1>Vite + TypeScript</h1>
-    <div class="card">
-      <button id="counter" type="button"></button>
-    </div>
-    <p class="read-the-docs">
-      Click on the Vite and TypeScript logos to learn more
-    </p>
-  </div>
-`
+function graphCreate(maxHeight: number, maxWidth: number, nodeNum: number, graphType: GraphType) {
+  const [adjacencyMatrix, edgeCoordinates] = createGraph(maxHeight, maxWidth, nodeNum, graphType);
+  (document.getElementById("adjacency-matrix") as HTMLDivElement).innerText = adjacencyMatrix.toString();
+  (document.getElementById("edge-coordinates") as HTMLDivElement).innerText = edgeCoordinates.toString();
+}
 
-setupCounter(document.querySelector<HTMLButtonElement>('#counter')!)
+graphCreate(5, 5, 5, GraphType.Random);
