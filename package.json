@@ -9,7 +9,12 @@
     "preview": "vite preview"
   },
   "devDependencies": {
+    "@types/node": "^20.1.7",
+    "@types/vis": "^4.21.24",
     "typescript": "^5.0.2",
     "vite": "^4.3.2"
+  },
+  "dependencies": {
+    "vis-network": "^9.1.6"
   }
 }

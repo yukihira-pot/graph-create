@@ -1,4 +1,4 @@
-export class Edge {
+export class MyEdge {
   x1: number;
   y1: number;
   x2: number;
@@ -12,7 +12,7 @@ export class Edge {
   }
 
   // 辺の交差判定
-  isIntersect(anotherEdge: Edge): boolean {
+  isIntersect(anotherEdge: MyEdge): boolean {
     // https://qiita.com/zu_rin/items/e04fdec4e3dec6072104 より
     var s: number = (this.x1 - this.x2) * (anotherEdge.y1 - this.y1) - (this.y1 - this.y2) * (anotherEdge.x1 - this.x1);
     var t: number = (this.x1 - this.x2) * (anotherEdge.y2 - this.y1) - (this.y1 - this.y2) * (anotherEdge.x2 - this.x1);
@@ -42,7 +42,7 @@ export class Edge {
     return `[${this.x1}, ${this.y1}] -> [${this.x2}, ${this.y2}]\n`;
   }
 
-  equals(anotherEdge: Edge) {
+  equals(anotherEdge: MyEdge) {
     return this.x1 === anotherEdge.x1 && this.x2 === anotherEdge.x2 && this.y1 === anotherEdge.y1 && this.y2 === anotherEdge.y2;
   }
 }

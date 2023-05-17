@@ -1,5 +1,5 @@
 import './style.css'
-import { Edge } from "./edge.ts"
+import { MyEdge } from "./edge.ts"
 
 export enum GraphType {
   Uniform,
@@ -11,7 +11,7 @@ export enum GraphType {
 }
 
 
-export function createGraph(maxHeight: number, maxWidth: number, nodeNum: number, graphType: GraphType): [(number)[][], (Edge)[]] {
+export function createGraph(maxHeight: number, maxWidth: number, nodeNum: number, graphType: GraphType): [(number)[][], (MyEdge)[]] {
   const MAX_ELEMENTS: number = 1000000;
   if (maxHeight * maxWidth > MAX_ELEMENTS) {
     throw console.error("exceeded number of elemeents");
@@ -20,7 +20,7 @@ export function createGraph(maxHeight: number, maxWidth: number, nodeNum: number
   }
 
   var adjacencyMatrix: (number)[][] = new Array(maxHeight);
-  var edgeCoordinates: (Edge)[] = [];
+  var edgeCoordinates: (MyEdge)[] = [];
 
   for (let i = 0; i < maxHeight; i++) {
     adjacencyMatrix[i] = new Array(maxWidth).fill(-1);
@@ -50,7 +50,7 @@ export function createGraph(maxHeight: number, maxWidth: number, nodeNum: number
     return [adjacencyMatrix, edgeCoordinates];
 }
 
-function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number): [number[][], Edge[]] {
+function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number): [number[][], MyEdge[]] {
   var adjacencyMatrix: number[][] = new Array(maxHeight);
   for (let i = 0; i < maxHeight; i++) {
     adjacencyMatrix[i] = new Array(maxWidth).fill(-1);
@@ -71,7 +71,7 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
     adjacencyMatrix[x][y] = i;
   }
   
-  var edgeCoordinates: (Edge)[] = [];
+  var edgeCoordinates: (MyEdge)[] = [];
 
   var maxIteration = nodeNum * 30;
   while (maxIteration--) {
@@ -81,8 +81,8 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
     
     var node1: number[] = nodeCoordinates[nodeIndex1];
     var node2: number[] = nodeCoordinates[nodeIndex2];
-    var newEdge = new Edge(node1[0], node1[1], node2[0], node2[1]);
-    var newReverseEdge = new Edge(node2[0], node2[1], node1[0], node1[1]);
+    var newEdge = new MyEdge(node1[0], node1[1], node2[0], node2[1]);
+    var newReverseEdge = new MyEdge(node2[0], node2[1], node1[0], node1[1]);
 
     if (!edgeCoordinates.some(edge => edge.equals(newEdge)) && !edgeCoordinates.some(edge => edge.equals(newReverseEdge))) {
       var isAbleToAdd: boolean = true;

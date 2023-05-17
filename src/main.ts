@@ -1,10 +1,19 @@
 import './style.css'
+import { MyEdge } from "./edge.ts"
 import { createGraph, GraphType } from "./graphcreate.ts"
+import { graphInfoVisualize } from "./graphinfovisualize.ts"
+import { graphVisualize } from "./graphvisualize.ts"
 
-function graphCreate(maxHeight: number, maxWidth: number, nodeNum: number, graphType: GraphType) {
-  const [adjacencyMatrix, edgeCoordinates] = createGraph(maxHeight, maxWidth, nodeNum, graphType);
-  (document.getElementById("adjacency-matrix") as HTMLDivElement).innerText = adjacencyMatrix.toString();
-  (document.getElementById("edge-coordinates") as HTMLDivElement).innerText = edgeCoordinates.toString();
+var adjacencyMatrix: number[][] = [];
+var edgeCoordinates: MyEdge[] = [];
+
+function readGraphConfig(
+  maxHeight: number, maxWidth: number, nodeNum: number, graphType: GraphType
+) {
+  [adjacencyMatrix, edgeCoordinates] = createGraph(maxHeight, maxWidth, nodeNum, graphType);
 }
 
-graphCreate(5, 5, 5, GraphType.Random);
+readGraphConfig(10, 10, 10, GraphType.Random);
+
+graphInfoVisualize(adjacencyMatrix, edgeCoordinates);
+graphVisualize(adjacencyMatrix, edgeCoordinates);
