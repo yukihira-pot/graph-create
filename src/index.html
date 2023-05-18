@@ -9,7 +9,8 @@
   <body>
     <h3>1. 使い方: </h3>
     <p id="description">
-      (縦の長さ×横の長さ) の大きさの盤面を生成し、盤面中のマスからランダムに頂点を選んでグラフを作成します。
+      (縦の長さ×横の長さ) の大きさの盤面を生成し、盤面中のマスからランダムに頂点を選んでグラフを作成します。<br>
+      1マスがどれだけの距離を表すかは、「1マスあたりの距離」から入力することができます (デフォルト値は20です) 。
     </p>
 
     <h3>2. 生成フォーム</h3>
@@ -18,6 +19,7 @@
       横の長さ: <input type="number" id="max-width" class="form-control" placeholder="例：8">
       頂点数: <input type="number" id="vertex-num" class="form-control" placeholder="例：10">
       ゴール数: <input type="number" id="station-num" class="form-control" placeholder="例：2">
+      1マスあたりの距離: <input type="number" id="tile-distance" class="form-control" value="20">
       <input type="submit" id="submit-btn" value="生成する">
     </form>
 

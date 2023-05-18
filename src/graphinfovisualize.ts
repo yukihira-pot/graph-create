@@ -1,8 +1,9 @@
 import { MyEdge } from "./edge.ts"
 
 export function graphInfoVisualize(
-  nodeMatrix: number[][], edgeCoordinates: MyEdge[]
+  nodeMatrix: number[][], edgeCoordinates: MyEdge[], tileDistance: number
 ): void {
+  
   // 前の table を空にする
   const table = document.getElementById("node-matrix__table") as HTMLTableElement;
   table.innerHTML = "";
@@ -41,9 +42,13 @@ export function graphInfoVisualize(
     var y2 = edgeCoordinates[i].y2;
     var v1 = nodeMatrix[x1][y1];
     var v2 = nodeMatrix[x2][y2];
+    var extendedx1 = x1 * tileDistance;
+    var extendedy1 = y1 * tileDistance;
+    var extendedx2 = x2 * tileDistance;
+    var extendedy2 = y2 * tileDistance;
     var edgeElement = document.createElement("li");
     edgeElement.innerText 
-    = `${v1} - ${v2}: (${x1}, ${y1}) - (${x2}, ${y2})`;
+    = `${v1} - ${v2}: (${extendedx1}, ${extendedy1}) - (${extendedx2}, ${extendedy2})`;
     edgeElements.appendChild(edgeElement);
   }
 }
