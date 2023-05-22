@@ -1,3 +1,3 @@
 # graph-create
 ## URL
-- [https://github.com/yukihira-pot/graph-create](https://github.com/yukihira-pot/graph-create) にデプロイしています。
+- [https://yukihira-pot.github.io/graph-create/](https://yukihira-pot.github.io/graph-create/) にデプロイしています。
