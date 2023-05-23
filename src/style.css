@@ -6,6 +6,7 @@ body {
 
 .form-control {
     height: 20px;
+    margin: 5px;
     padding: 5px;
     border: solid 3px orange;
     border-radius: 5%;
@@ -14,6 +15,7 @@ body {
 #submit-btn {
     background-color: orange;
     border: solid 3px orangered;
+    margin-top: 10px;
     font-weight: bold;
 }
 #submit-btn:hover {

@@ -1,3 +1,4 @@
+import JSZip from 'jszip';
 import { MyEdge } from "./edge.ts"
 
 function getCurrentDateTimeStr(): string{
@@ -21,22 +22,31 @@ function jsonToCSV(json: JsonData[], header: string): string {
   return header + body;
 }
 
-function createDownloadLink(data: string, filename: string): void {
-  const blob = new Blob([data], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = filename;
-  a.innerText = filename;
+export async function createDownloadLink(nodeCSVList: string[], edgeCSVList: string[]): Promise<void> {
+  const zip = new JSZip();
+  
+  for (let i = 0; i < nodeCSVList.length; i++) {
+    const folder = zip.folder(`map_${i}`);
+    folder?.file("node.csv", nodeCSVList[i]);
+    folder?.file("edge.csv", edgeCSVList[i]);
+  }
+  
+  const content = await zip.generateAsync({ type: "blob" });
+
+  // ダウンロードリンクを生成する
+  const downloadLink = document.createElement('a');
+  downloadLink.href = URL.createObjectURL(content);
+  downloadLink.download = `map_${getCurrentDateTimeStr()}`;
+  downloadLink.innerText = `map_${getCurrentDateTimeStr()}.zip`;
 
   const li = document.createElement("li");
-  li.appendChild(a);
-  (document.getElementById("download-csv") as HTMLDivElement).appendChild(li);
+  li.appendChild(downloadLink);
+  (document.getElementById("download-csv") as HTMLUListElement).appendChild(li);
 }
 
 export function csvGenerate(
   nodeMatrix: number[][], edgeCoordinates: (MyEdge)[], tileDistance: number, stationNum: number
-  ): void {
+  ): string[] {
 
   type Node = { 
     ID: string, 
@@ -100,8 +110,5 @@ export function csvGenerate(
   var nodeCSV: string =  jsonToCSV(nodes, ["ID(ignored)", "x", "y", "z", "station\n"].join(","));
   var edgeCSV: string = jsonToCSV(edges, ["from", "to\n"].join(","));
 
-  console.log(nodeCSV);
-
-  createDownloadLink(nodeCSV, `node_${getCurrentDateTimeStr()}.csv`);
-  createDownloadLink(edgeCSV, `edge_${getCurrentDateTimeStr()}.csv`);
+  return [nodeCSV, edgeCSV];
 }

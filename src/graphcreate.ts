@@ -64,7 +64,9 @@ function createRandomGraph(maxHeight: number, maxWidth: number, nodeNum: number)
     }
   }
   // 全ての格子点を入れた配列をランダムにソートし、前から nodeNum 個を頂点の座標とする
-  nodeCoordinates.sort((_1, _2) => 0.5 - Math.random());
+  for (let i = 0; i < 3; i++) {
+    nodeCoordinates.sort((_1, _2) => 0.5 - Math.random());
+  }
   nodeCoordinates = nodeCoordinates.slice(0, nodeNum);
   for (let i = 0; i < nodeCoordinates.length; i++) {
     var [x, y] = nodeCoordinates[i];

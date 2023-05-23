@@ -14,13 +14,15 @@
     </p>
 
     <h3>2. 生成フォーム</h3>
+  
     <form id="graph-creation-form">
-      縦の長さ: <input type="number" id="max-height" class="form-control" placeholder="例：5">
-      横の長さ: <input type="number" id="max-width" class="form-control" placeholder="例：8">
-      頂点数: <input type="number" id="vertex-num" class="form-control" placeholder="例：10">
-      ゴール数: <input type="number" id="station-num" class="form-control" placeholder="例：2">
-      1マスあたりの距離: <input type="number" id="tile-distance" class="form-control" value="20">
-      <input type="submit" id="submit-btn" value="生成する">
+      <div>縦の長さ: <input type="number" id="max-height" class="form-control" placeholder="例：5"></div>
+      <div>横の長さ: <input type="number" id="max-width" class="form-control" placeholder="例：8"></div>
+      <div>頂点数: <input type="number" id="vertex-num" class="form-control" placeholder="例：10"></div>
+      <div>ゴール数: <input type="number" id="station-num" class="form-control" placeholder="例：2"></div>
+      <div>1マスあたりの距離: <input type="number" id="tile-distance" class="form-control" value="20"></div>
+      <div>生成するグラフの数: <input type="number" id="generate-graph-num" class="form-control" value="5"></div>
+      <div><input type="submit" id="submit-btn" value="生成する">
     </form>
 
     <h3>3. CSV ダウンロード (生成後ダウンロードリンクができます)</h3>
